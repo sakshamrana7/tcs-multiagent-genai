@@ -1,0 +1,185 @@
+TCS CUSTOMER SUPPORT POLICIES AND GUIDELINES
+
+================================================================================
+1. RETURN POLICY
+================================================================================
+
+All items purchased from TCS are covered by our comprehensive return policy:
+
+- 30-DAY MONEY-BACK GUARANTEE: We offer a full refund within 30 days of purchase.
+- CONDITION REQUIREMENTS: Items must be unused and in original packaging.
+- REFUND TIMELINE: Refunds are processed within 5-7 business days after receipt.
+- SHIPPING COSTS: Original shipping is non-refundable unless item was defective.
+- RESTOCKING FEE: Items over $500 incur a 15% restocking fee.
+- DEFECTIVE ITEMS: Free return shipping provided for defective products.
+
+To initiate a return:
+1. Contact customer service with your order number
+2. Receive a return shipping label
+3. Ship item back in original packaging
+4. Refund processed upon receipt and inspection
+
+================================================================================
+2. WARRANTY POLICY
+================================================================================
+
+All TCS products include comprehensive warranty coverage:
+
+STANDARD WARRANTY (12 MONTHS):
+- Covers manufacturing defects and material faults
+- Covers workmanship issues
+- Does NOT cover accidental damage or misuse
+- Does NOT cover normal wear and tear
+- Does NOT cover unauthorized repairs
+
+EXTENDED WARRANTY OPTIONS:
+- 2-Year Extended Warranty: Additional 24 months of coverage
+- 3-Year Extended Warranty: Additional 36 months of coverage
+- Available for purchase up to 30 days after product purchase
+
+WARRANTY CLAIM PROCESS:
+1. Report issue to support@tcs.com within 30 days of discovery
+2. Provide proof of purchase and description of issue
+3. Product may be inspected or replaced
+4. Claims submitted after 30 days may be denied
+
+WHAT IS NOT COVERED:
+- Cosmetic damage
+- Unauthorized repairs or modifications
+- Damage from misuse or accidents
+- Normal degradation over time
+- Water damage (unless expressly covered)
+
+================================================================================
+3. SHIPPING AND DELIVERY
+================================================================================
+
+SHIPPING OPTIONS:
+
+Standard Shipping (5-7 business days):
+- Free on orders over $50
+- $9.99 for orders under $50
+- Tracked via USPS/UPS
+
+Express Shipping (2-3 business days):
+- $24.99 per order
+- Priority handling
+- Tracked with signature available
+
+Overnight Shipping (next business day):
+- $49.99 per order
+- Guaranteed delivery by 10:30 AM
+- Full insurance included
+
+INTERNATIONAL SHIPPING:
+- Available to 150+ countries
+- 10-21 business day delivery
+- Customs clearance customer's responsibility
+- Duties and taxes may apply
+
+TRACKING:
+- Tracking number sent via email at shipment
+- Real-time updates available on website
+- Packages insured for full value
+
+================================================================================
+4. PAYMENT AND BILLING
+================================================================================
+
+ACCEPTED PAYMENT METHODS:
+- Credit Cards: Visa, MasterCard, American Express, Discover
+- Digital Wallets: Apple Pay, Google Pay, PayPal
+- Bank Transfer: ACH transfers accepted
+- Installment Plans: Affirm, Klarna (on eligible orders)
+
+SECURITY:
+- All transactions use SSL 256-bit encryption
+- PCI-DSS Level 1 compliant
+- No credit card data stored on our servers
+- Tokenized payments for safe recurring charges
+
+BILLING PRACTICES:
+- Charge occurs immediately upon order completion
+- Pre-orders charged when order is placed
+- Tax calculated based on shipping address
+- Monthly statements available in account portal
+- Invoices emailed automatically
+
+BILLING DISPUTES:
+- Contact billing@tcs.com within 60 days
+- Chargebacks initiated within 30 days
+- Full documentation provided to credit card company
+- Disputes typically resolved within 30-45 days
+
+================================================================================
+5. CUSTOMER SUPPORT
+================================================================================
+
+CONTACT INFORMATION:
+
+Email Support:
+- support@tcs.com
+- Response time: 24 hours
+- Available Mon-Fri 8AM-8PM EST
+- Weekends available for Premium members
+
+Phone Support:
+- 1-800-TCS-HELP (1-800-827-4357)
+- Response time: Immediate
+- Mon-Fri 8AM-8PM EST
+- Sat 9AM-5PM EST
+
+Live Chat:
+- Available 24/7 on website
+- Average response time: 5 minutes
+- Premium members get priority queue
+
+SUPPORT TIER SYSTEM:
+
+Tier 1 - Basic Support:
+- Email and chat only
+- 24-hour response time
+- General inquiries only
+
+Tier 2 - Premium Support:
+- Email, chat, and phone
+- 2-hour response time
+- Product-specific assistance
+- $9.99/month or included with premium membership
+
+Tier 3 - Enterprise Support:
+- Dedicated account manager
+- 1-hour response time
+- Priority handling
+- Proactive issue monitoring
+- Custom SLA available
+
+================================================================================
+6. DATA PRIVACY AND ACCOUNT SECURITY
+================================================================================
+
+DATA PROTECTION:
+- Personal information encrypted in transit and at rest
+- GDPR and CCPA compliant
+- No third-party sharing without consent
+- Annual security audits performed
+- ISO 27001 certified
+
+TWO-FACTOR AUTHENTICATION:
+- Available for all accounts
+- SMS or authenticator app
+- Highly recommended for security
+
+PASSWORD SECURITY:
+- Minimum 12 characters required
+- Must include uppercase, lowercase, numbers, symbols
+- Never shared with support staff
+- Changed every 90 days recommended
+
+ACCOUNT ACCESS:
+- Account accessible only to registered user
+- Login from any device with password
+- Session timeout after 30 minutes of inactivity
+- Login history available in account settings
+
+

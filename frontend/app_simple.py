@@ -1,6 +1,6 @@
 """
 Streamlit Web UI for TCS Multi-Agent GenAI Tool
-Simple structured data interface
+Simple structured data interface with RAG
 """
 
 import streamlit as st
@@ -17,6 +17,12 @@ from backend.db.database import (
     get_customer_support_tickets,
     search_customers,
 )
+from backend.rag.rag_pipeline import (
+    search_documents,
+    seed_sample_documents,
+    get_collection_info,
+    add_documents,
+)
 
 # Page config
 st.set_page_config(page_title="TCS GenAI", page_icon="🤖", layout="wide")
@@ -31,6 +37,7 @@ st.divider()
 def init():
     init_database()
     seed_sample_data()
+    seed_sample_documents()  # Initialize RAG
     return True
 
 if not init():
@@ -40,7 +47,7 @@ if not init():
 # Sidebar
 with st.sidebar:
     st.header("📌 Navigation")
-    page = st.radio("Select:", ["🔍 Search", "👤 Profile", "🎫 Tickets"])
+    page = st.radio("Select:", ["🔍 Search", "👤 Profile", "🎫 Tickets", "📚 Policies & FAQs", "📤 Upload Documents"])
 
 # Page: Search
 if page == "🔍 Search":
@@ -122,6 +129,90 @@ elif page == "🎫 Tickets":
                             st.write(f"**Created:** {ticket['created_date']}")
                         
                         st.write(f"{ticket.get('description', 'N/A')}")
+
+# Page: Policies & FAQs (RAG)
+elif page == "📚 Policies & FAQs":
+    st.header("Policies & FAQs")
+    st.markdown("Search our knowledge base")
+    
+    query = st.text_input("Ask a question about policies, shipping, returns, etc.")
+    
+    if query:
+        results = search_documents("policies_faqs", query, n_results=3)
+        
+        if results:
+            st.success(f"Found {len(results)} relevant answer(s)")
+            
+            for i, result in enumerate(results, 1):
+                similarity = result["similarity"]
+                content = result["content"]
+                metadata = result["metadata"]
+                
+                with st.expander(f"📄 Result {i} (Relevance: {similarity:.0%})", expanded=i==1):
+                    st.write(content)
+                    if metadata.get("type"):
+                        st.caption(f"Type: {metadata['type']} | Category: {metadata.get('category', 'N/A')}")
+        else:
+            st.info("No results found. Try rephrasing your question.")
+
+# Page: Upload Documents
+elif page == "📤 Upload Documents":
+    st.header("Upload Policy Documents")
+    st.markdown("Upload text or PDF files to add to the knowledge base")
+    
+    uploaded_files = st.file_uploader(
+        "Choose files",
+        type=["txt", "pdf", "md"],
+        accept_multiple_files=True
+    )
+    
+    if uploaded_files:
+        st.info(f"📁 {len(uploaded_files)} file(s) ready to upload")
+        
+        if st.button("Process & Upload Documents"):
+            progress_bar = st.progress(0)
+            status_text = st.empty()
+            
+            documents = []
+            
+            for idx, file in enumerate(uploaded_files):
+                status_text.text(f"Processing {file.name}...")
+                progress_bar.progress((idx + 1) / len(uploaded_files))
+                
+                try:
+                    # Read file content
+                    content = file.read().decode("utf-8")
+                    
+                    documents.append({
+                        "id": file.name.replace(".", "_"),
+                        "content": content,
+                        "metadata": {
+                            "filename": file.name,
+                            "file_type": file.type,
+                            "source": "user_upload"
+                        }
+                    })
+                except Exception as e:
+                    st.error(f"Error reading {file.name}: {str(e)}")
+            
+            if documents:
+                try:
+                    n_chunks = add_documents("policies_faqs", documents)
+                    
+                    st.success(f"✅ Successfully uploaded {len(documents)} document(s) ({n_chunks} chunks)")
+                    st.balloons()
+                except Exception as e:
+                    st.error(f"Error uploading documents: {str(e)}")
+    
+    st.divider()
+    st.subheader("📊 Knowledge Base Status")
+    
+    info = get_collection_info("policies_faqs")
+    col1, col2 = st.columns(2)
+    with col1:
+        st.metric("Documents in KB", info.get("count", 0))
+    with col2:
+        st.metric("Status", "Ready" if info.get("count", 0) > 0 else "Empty")
 
 st.divider()
 st.markdown("**TCS Multi-Agent GenAI** - Structured Data Edition")
