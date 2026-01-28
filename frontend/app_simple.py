@@ -5,7 +5,12 @@ Simple structured data interface with RAG
 
 import streamlit as st
 import sys
+import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+# Load environment variables from .env
+load_dotenv()
 
 # Add backend to path
 sys.path.insert(0, str(Path(__file__).parent.parent))
@@ -23,6 +28,7 @@ from backend.rag.rag_pipeline import (
     get_collection_info,
     add_documents,
 )
+from backend.chatbot import generate_answer
 
 # Page config
 st.set_page_config(page_title="TCS GenAI", page_icon="🤖", layout="wide")
@@ -47,10 +53,17 @@ if not init():
 # Sidebar
 with st.sidebar:
     st.header("📌 Navigation")
-    page = st.radio("Select:", ["🔍 Search", "👤 Profile", "🎫 Tickets", "📚 Policies & FAQs", "📤 Upload Documents"])
+    page = st.radio("Select:", [
+        "Search Customers",
+        "Customer Profile", 
+        "Support Tickets",
+        "AI Chatbot",
+        "Document Search",
+        "Upload Documents"
+    ])
 
 # Page: Search
-if page == "🔍 Search":
+if page == "Search Customers":
     st.header("Search Customers")
     query = st.text_input("Enter name or email:")
     
@@ -64,7 +77,7 @@ if page == "🔍 Search":
             st.info("No results")
 
 # Page: Profile
-elif page == "👤 Profile":
+elif page == "Customer Profile":
     st.header("Customer Profile")
     
     all_customers = search_customers("")
@@ -103,7 +116,7 @@ elif page == "👤 Profile":
                     st.write(f"- Order #{order['id']}: ${order['amount']} ({order['status']}) - {order['order_date']}")
 
 # Page: Tickets
-elif page == "🎫 Tickets":
+elif page == "Support Tickets":
     st.header("Support Tickets")
     
     all_customers = search_customers("")
@@ -130,8 +143,57 @@ elif page == "🎫 Tickets":
                         
                         st.write(f"{ticket.get('description', 'N/A')}")
 
+# Page: AI Chatbot
+elif page == "AI Chatbot":
+    st.header("AI Customer Support Chatbot")
+    st.markdown("Ask questions about our policies and get intelligent answers powered by Google Gemini")
+    
+    # Check for API key
+    api_key = os.getenv("GOOGLE_API_KEY")
+    
+    if not api_key:
+        st.warning("⚠️ **API Key Required**")
+        st.info("""
+        To use the AI Chatbot, you need to:
+        1. Get a **FREE** API key from [Google AI Studio](https://aistudio.google.com/app/apikey)
+        2. Add it to your `.env` file: `GOOGLE_API_KEY=your_key`
+        3. Restart Streamlit
+        
+        Google's free tier includes:
+        - 60 requests per minute
+        - Unlimited requests per month (rate limited)
+        - Perfect for development and testing!
+        """)
+    else:
+        st.success("✅ API Key Found!")
+        # Chat interface
+        user_query = st.text_input("Ask a question about our policies:")
+        
+        if user_query:
+            with st.spinner("🤖 Thinking..."):
+                try:
+                    result = generate_answer(user_query, n_results=5)
+                    
+                    # Display answer
+                    st.success("✅ Answer Generated")
+                    st.markdown("### Answer")
+                    st.write(result["answer"])
+                    
+                    # Display sources
+                    if result.get("sources"):
+                        st.divider()
+                        st.markdown("### 📚 Sources")
+                        
+                        for source in result["sources"]:
+                            with st.expander(f"Source {source['id']}: {source['filename']} ({source['relevance']} relevant)"):
+                                st.caption(f"Type: {source['type']}")
+                    
+                except Exception as e:
+                    st.error(f"Error generating answer: {str(e)}")
+                    st.info("Make sure your GOOGLE_API_KEY is valid and you have internet connection.")
+
 # Page: Policies & FAQs (RAG)
-elif page == "📚 Policies & FAQs":
+elif page == "Document Search":
     st.header("Policies & FAQs")
     st.markdown("Search our knowledge base")
     
@@ -156,7 +218,7 @@ elif page == "📚 Policies & FAQs":
             st.info("No results found. Try rephrasing your question.")
 
 # Page: Upload Documents
-elif page == "📤 Upload Documents":
+elif page == "Upload Documents":
     st.header("Upload Policy Documents")
     st.markdown("Upload text or PDF files to add to the knowledge base")
     

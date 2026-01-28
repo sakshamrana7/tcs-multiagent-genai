@@ -4,7 +4,7 @@ mcp[cli]>=0.5.0
 # LLM & Language
 langchain>=0.1.0
 langchain-community>=0.1.0
-langchain-anthropic>=0.1.0
+langchain-google-genai>=0.0.1
 
 # Vector Database & RAG
 chromadb>=0.4.0
