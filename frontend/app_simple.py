@@ -54,7 +54,6 @@ if not init():
 with st.sidebar:
     st.header("📌 Navigation")
     page = st.radio("Select:", [
-        "Search Customers",
         "Customer Profile", 
         "Support Tickets",
         "AI Chatbot",
@@ -62,68 +61,50 @@ with st.sidebar:
         "Upload Documents"
     ])
 
-# Page: Search
-if page == "Search Customers":
-    st.header("Search Customers")
-    query = st.text_input("Enter name or email:")
-    
-    if query:
-        results = search_customers(query)
-        if results:
-            st.success(f"Found {len(results)} customer(s)")
-            for c in results:
-                st.write(f"**{c['name']}** - {c['email']} ({c['account_status']})")
-        else:
-            st.info("No results")
-
-# Page: Profile
-elif page == "Customer Profile":
+if page == "Customer Profile":
     st.header("Customer Profile")
-    
     all_customers = search_customers("")
     if all_customers:
-        names = [c["name"] for c in all_customers]
-        selected = st.selectbox("Select customer:", names)
-        
+        name_email_options = [f"{c['name']} ({c['email']})" for c in all_customers]
+        selected_option = st.selectbox("Select customer:", name_email_options)
+        # Extract name from "Name (email)"
+        selected = selected_option.split(" (")[0]
         profile = get_customer_profile(selected)
-        
         if profile and "error" not in profile:
-            col1, col2, col3 = st.columns(3)
+            col1, col2, col3, col4 = st.columns(4)
             with col1:
-                st.metric("Email", profile.get("email", "N/A"))
+                st.metric("Customer ID", profile.get("id", "N/A"))
             with col2:
-                st.metric("Status", profile.get("account_status", "N/A"))
+                st.metric("Email", profile.get("email", "N/A"))
             with col3:
+                st.metric("Status", profile.get("account_status", "N/A"))
+            with col4:
                 st.metric("Account Type", profile.get("account_type", "N/A"))
-            
             st.divider()
-            
             col1, col2 = st.columns(2)
             with col1:
                 st.subheader("Contact")
                 st.write(f"Phone: {profile.get('phone', 'N/A')}")
                 st.write(f"Since: {profile.get('signup_date', 'N/A')}")
-            
             with col2:
                 st.subheader("Stats")
                 st.write(f"Total Orders: {profile.get('total_orders', 0)}")
                 st.write(f"Lifetime Value: ${profile.get('lifetime_value', 0):.2f}")
-            
             if profile.get("orders"):
                 st.divider()
                 st.subheader("Orders")
                 for order in profile["orders"]:
                     st.write(f"- Order #{order['id']}: ${order['amount']} ({order['status']}) - {order['order_date']}")
-
 # Page: Tickets
 elif page == "Support Tickets":
     st.header("Support Tickets")
     
     all_customers = search_customers("")
     if all_customers:
-        names = [c["name"] for c in all_customers]
-        selected = st.selectbox("Select customer:", names, key="ticket_select")
-        
+        name_email_options = [f"{c['name']} ({c['email']})" for c in all_customers]
+        selected_option = st.selectbox("Select customer:", name_email_options, key="ticket_select")
+        # Extract name from "Name (email)"
+        selected = selected_option.split(" (")[0]
         tickets = get_customer_support_tickets(selected)
         
         if tickets and not tickets.get("error"):
