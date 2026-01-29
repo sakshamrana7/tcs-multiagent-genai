@@ -1,5 +1,19 @@
 # TCS Multi-Agent GenAI Tool
 
+## 🚦 Quick Start (TL;DR)
+
+```bash
+cd /Users/sakshamrana/Documents/GitHub/tcs-multiagent-genai
+pip install -r backend/requirements.txt
+
+# Start the app (default port 8501)
+streamlit run frontend/app_simple.py
+
+# Open http://localhost:8501 in your browser
+```
+
+For troubleshooting or advanced usage, see below.
+
 A sophisticated multi-agent GenAI system that combines Retrieval Augmented Generation (RAG) for policy documents with SQL database queries for customer information. Built with LangChain, LangGraph, MCP Server, and Streamlit.
 
 ## 🎯 Features
